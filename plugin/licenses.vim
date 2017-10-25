@@ -39,6 +39,12 @@ if !exists('g:licenses_copyright_holders_name')
     let g:licenses_copyright_holders_name = ''
 endif
 
+if !exists('g:licenses_custom_path')
+    let s:licensesPath = expand('<sfile>:p:h:h') . '/licenses/'
+else
+    let s:licensesPath = expand(g:licenses_custom_path)
+endif
+
 if !exists('g:licenses_authors_name')
     let g:licenses_authors_name = ''
 endif
@@ -92,7 +98,6 @@ let s:filetypeCommentDelimiters = {
     \}
 \}
 
-let s:licensesPath = expand('<sfile>:p:h:h') . '/licenses/'
 
 " Insert and comment the provided license.
 function! InsertLicense(name)
@@ -291,7 +296,7 @@ function s:insertComment(commentDelimiters, addedLineCount, secondLineEmpty)
         substitute /\s\+$//e
     endfor
     put =a:commentDelimiters['end']
-    normal! I 
+    normal! I
 
     " Insert php close tag if filetype is php and first line did not
     " contain it.
